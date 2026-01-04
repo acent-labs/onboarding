@@ -10,7 +10,6 @@ import {
   DocumentInfo,
   UserProgress,
 } from '../services/apiClient';
-import { SCENARIOS } from '../constants';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -22,13 +21,14 @@ import type { ProgressSummary } from '../types';
 
 type Tab = 'users' | 'documents';
 
-// 사용자별 통합 데이터
+// 사용자별 통합 데이터 (백엔드에서 사용자당 하나의 세션만 반환)
 interface UserSummary {
   userName: string;
-  sessionsCount: number;
+  sessionsCount: number;       // 항상 1 (백엔드에서 세션 통합)
   totalCompleted: number;
+  totalScenarios: number;      // 전체 시나리오/모듈 수 (백엔드에서 제공)
   completionRate: number;
-  lastSessionId: string;
+  sessionId: string;           // 사용자의 통합된 세션 ID
   lastActivity?: string;
 }
 
@@ -50,7 +50,7 @@ const AdminPage: React.FC = () => {
   const [selectedSessionId, setSelectedSessionId] = useState<string>('');
   const [detailLoading, setDetailLoading] = useState(false);
   const [detailError, setDetailError] = useState<string | null>(null);
-  const [scenarioProgress, setScenarioProgress] = useState<UserProgress | null>(null);
+  const [, setScenarioProgress] = useState<UserProgress | null>(null);
   const [showSessionPicker, setShowSessionPicker] = useState(false);
   const [visibleUserCount, setVisibleUserCount] = useState(50);
   const [curriculumSummaries, setCurriculumSummaries] = useState<
@@ -187,7 +187,7 @@ const AdminPage: React.FC = () => {
 
   const openUserDetail = async (user: UserSummary) => {
     setSelectedUser(user);
-    setSelectedSessionId(user.lastSessionId);
+    setSelectedSessionId(user.sessionId);
     setShowSessionPicker(false);
     setIsDetailOpen(true);
   };
@@ -216,21 +216,55 @@ const AdminPage: React.FC = () => {
         }))
         .filter((p) => !!p.id);
 
-      // 제품 목록만 설정 (데이터는 Accordion 펼칠 때 로드)
+      // 제품 목록 설정 (로딩 상태로 초기화)
       setCurriculumSummaries(
         productList.map(p => ({
           productId: p.id,
           productName: p.name,
           summary: null,
-          loading: false,
+          loading: true,
         }))
       );
+
+      // 모든 제품의 진행률을 병렬로 미리 로드
+      const summaryResults = await Promise.allSettled(
+        productList.map(async (p) => {
+          const summary = await getProgressSummary(selectedSessionId, p.id);
+          return { productId: p.id, productName: p.name, summary };
+        })
+      );
+
+      // 결과 반영
+      const loadedProductIds = new Set<string>();
+      setCurriculumSummaries(
+        summaryResults.map((result, idx) => {
+          const p = productList[idx];
+          if (result.status === 'fulfilled') {
+            loadedProductIds.add(p.id);
+            return {
+              productId: p.id,
+              productName: p.name,
+              summary: result.value.summary,
+              loading: false,
+            };
+          } else {
+            return {
+              productId: p.id,
+              productName: p.name,
+              summary: null,
+              loading: false,
+              error: '진도 조회 실패',
+            };
+          }
+        })
+      );
+      setLoadedProducts(loadedProductIds);
     } catch (e) {
       setDetailError(e instanceof Error ? e.message : '상세 정보를 불러오지 못했습니다.');
     } finally {
       setDetailLoading(false);
     }
-  }, [selectedSessionId]);
+  }, [selectedSessionId, selectedUser]);
 
   // 개별 제품 커리큘럼 로드 (Accordion 펼칠 때 호출)
   const loadProductCurriculum = useCallback(async (productId: string) => {
@@ -268,43 +302,17 @@ const AdminPage: React.FC = () => {
     loadDetail();
   }, [isDetailOpen, loadDetail]);
 
-  // 사용자별로 세션 통합
+  // 사용자별 세션 (백엔드에서 이미 사용자당 하나의 세션으로 통합됨)
   const userSummaries = useMemo(() => {
-    const userMap = new Map<string, UserSummary>();
-
-    sessions.forEach(session => {
-      const userName = session.userName || '익명';
-
-      if (userMap.has(userName)) {
-        const existing = userMap.get(userName)!;
-        existing.sessionsCount += 1;
-
-        // 진행률(완료 시나리오)은 '가장 많이 완료한 값' 기준으로 표시
-        if (session.completedCount > existing.totalCompleted) {
-          existing.totalCompleted = session.completedCount;
-          existing.completionRate = session.completionRate;
-        }
-
-        // 상세보기 기본 세션은 '최근 활동' 기준으로 선택
-        const currentLast = toTime(existing.lastActivity);
-        const nextLast = toTime(session.lastActivity);
-        if (nextLast >= currentLast) {
-          existing.lastActivity = session.lastActivity;
-          existing.lastSessionId = session.sessionId;
-        }
-      } else {
-        userMap.set(userName, {
-          userName,
-          sessionsCount: 1,
-          totalCompleted: session.completedCount,
-          completionRate: session.completionRate,
-          lastSessionId: session.sessionId,
-          lastActivity: session.lastActivity,
-        });
-      }
-    });
-
-    return Array.from(userMap.values()).sort((a, b) => {
+    return sessions.map(session => ({
+      userName: session.userName || '익명',
+      sessionsCount: 1,  // 백엔드에서 세션 통합됨
+      totalCompleted: session.completedCount,
+      totalScenarios: session.totalScenarios,
+      completionRate: session.completionRate,
+      sessionId: session.sessionId,
+      lastActivity: session.lastActivity,
+    })).sort((a, b) => {
       // 1) 진행률 높은 순
       const byRate = b.completionRate - a.completionRate;
       if (byRate !== 0) return byRate;
@@ -459,7 +467,7 @@ const AdminPage: React.FC = () => {
                           </div>
                         </td>
                         <td className="py-4 text-foreground">
-                          {user.totalCompleted} / {SCENARIOS.length}
+                          {user.totalCompleted} / {user.totalScenarios}
                         </td>
                         <td className="py-4">
                           <div className="flex items-center gap-2">
@@ -573,7 +581,7 @@ const AdminPage: React.FC = () => {
 
       {/* 상세 모니터링 다이얼로그 */}
       <Dialog open={isDetailOpen} onOpenChange={setIsDetailOpen}>
-        <DialogContent className="max-w-none w-[min(96vw,1280px)] max-h-[85vh] overflow-y-auto">
+        <DialogContent className="max-w-none w-[min(96vw,900px)] h-[min(96vh,900px)] max-h-[85vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>사용자 진행 현황 상세</DialogTitle>
             <DialogDescription>
@@ -661,74 +669,8 @@ const AdminPage: React.FC = () => {
                 <LoadingSpinner message="상세 데이터를 불러오는 중..." />
               </div>
             ) : (
-              <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-                {/* 시나리오 진행 */}
-                <Card className="h-fit">
-                  <CardContent className="pt-6 space-y-4">
-                    <div className="flex items-center justify-between">
-                      <h3 className="font-semibold text-foreground">온보딩 시나리오</h3>
-                      <Badge variant="outline">세션 기준</Badge>
-                    </div>
-
-                    <div className="text-xs text-muted-foreground">
-                      참고: 상단 목록의 진행률은 <b>온보딩 시나리오(12개)</b> 기준입니다. 사용자가 커리큘럼(제품 모듈)만 진행했다면 여기 값은 0%일 수 있습니다.
-                    </div>
-
-                    {scenarioProgress ? (
-                      <>
-                        <div className="flex items-center justify-between text-sm">
-                          <span className="text-muted-foreground">완료</span>
-                          <span className="text-foreground font-medium">
-                            {scenarioProgress.completedScenarios.length} / {scenarioProgress.totalScenarios}
-                          </span>
-                        </div>
-                        <Progress value={scenarioProgress.completionRate} className="h-2" />
-                        <div className="text-sm text-muted-foreground">
-                          진행률: <span className="text-foreground font-medium">{Math.round(scenarioProgress.completionRate)}%</span>
-                        </div>
-
-                        <Accordion type="single" collapsible className="w-full">
-                          <AccordionItem value="scenarios">
-                            <AccordionTrigger>
-                              완료한 시나리오 목록 ({scenarioProgress.completedScenarios.length})
-                            </AccordionTrigger>
-                            <AccordionContent>
-                              {scenarioProgress.completedScenarios.length === 0 ? (
-                                <div className="text-sm text-muted-foreground">아직 완료한 시나리오가 없습니다.</div>
-                              ) : (
-                                <div className="space-y-2">
-                                  {[...scenarioProgress.completedScenarios]
-                                    .slice()
-                                    .sort((a, b) => (a.completedAt > b.completedAt ? -1 : 1))
-                                    .map((r) => {
-                                      const scenario = SCENARIOS.find((s) => s.id === r.scenarioId);
-                                      return (
-                                        <div key={r.scenarioId} className="flex items-start justify-between gap-3 p-2 rounded-md bg-muted/40 border border-border">
-                                          <div className="min-w-0">
-                                            <div className="text-sm font-medium text-foreground truncate">
-                                              {scenario?.title || r.scenarioId}
-                                            </div>
-                                            <div className="text-xs text-muted-foreground">{r.scenarioId}</div>
-                                          </div>
-                                          <div className="text-xs text-muted-foreground whitespace-nowrap">
-                                            {formatDateTime(r.completedAt)}
-                                          </div>
-                                        </div>
-                                      );
-                                    })}
-                                </div>
-                              )}
-                            </AccordionContent>
-                          </AccordionItem>
-                        </Accordion>
-                      </>
-                    ) : (
-                      <div className="text-sm text-muted-foreground">시나리오 진행 정보를 불러오지 못했습니다.</div>
-                    )}
-                  </CardContent>
-                </Card>
-
-                {/* 커리큘럼 진행 */}
+              <div className="grid grid-cols-1 gap-8">
+                {/* 커리큘럼 진행 (Admin 화면에서는 커리큘럼 진행률만 표시) */}
                 <Card className="h-fit">
                   <CardContent className="pt-6 space-y-4">
                     <div className="flex items-center justify-between">
@@ -751,7 +693,10 @@ const AdminPage: React.FC = () => {
                         {curriculumSummaries.map((p) => {
                           const rate = p.summary?.completionRate || 0;
                           const completed = p.summary?.completedModules || 0;
+                          const inProgress = p.summary?.inProgressModules || 0;
                           const total = p.summary?.totalModules || 0;
+                          // 진행 중인 모듈도 포함한 표시: 완료 + 진행 중 / 전체
+                          const totalWithProgress = completed + inProgress;
 
                           return (
                             <AccordionItem key={p.productId} value={p.productId}>
@@ -763,7 +708,7 @@ const AdminPage: React.FC = () => {
                                   </div>
                                   <div className="flex items-center gap-3">
                                     <div className="text-xs text-muted-foreground whitespace-nowrap">
-                                      {completed}/{total}
+                                      {totalWithProgress > 0 ? `${completed}+${inProgress}` : completed}/{total}
                                     </div>
                                     <div className="w-28">
                                       <Progress value={rate} className="h-2" />

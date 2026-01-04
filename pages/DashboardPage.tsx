@@ -104,8 +104,11 @@ const DashboardPage: React.FC = () => {
         const allModules: CurriculumModule[] = fulfilled.flatMap(s => s.modules || []);
         const totalModules = fulfilled.reduce((acc, s) => acc + (s.totalModules ?? s.modules?.length ?? 0), 0);
         const completedModules = fulfilled.reduce((acc, s) => acc + (s.completedModules ?? 0), 0);
+        const inProgressModules = fulfilled.reduce((acc, s) => acc + (s.inProgressModules ?? 0), 0);
+        // 진행률 계산: 완료된 모듈은 100%, 진행 중인 모듈은 50%로 반영
+        const progressPoints = (completedModules * 100) + (inProgressModules * 50);
         const completionPercent =
-          totalModules > 0 ? Math.round((completedModules / totalModules) * 100) : 0;
+          totalModules > 0 ? Math.round(progressPoints / totalModules) : 0;
 
         const productNameById = new Map(products.map(p => [p.id, p.name]));
 

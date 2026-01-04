@@ -25,10 +25,11 @@ import {
   getQuizQuestions,
   submitQuiz,
   updateModuleProgress,
+  getModuleProgress,
   ModuleContent,
   ModuleContentResponse,
 } from '../services/apiClient';
-import { CurriculumModule, QuizQuestion, QuizSubmitResponse, QuizAnswer } from '../types';
+import { CurriculumModule, QuizQuestion, QuizSubmitResponse, QuizAnswer, ModuleProgress } from '../types';
 
 type Phase = 'learning' | 'quiz' | 'result';
 
@@ -166,18 +167,59 @@ const ModuleLearningPage: React.FC = () => {
     setCurrentSectionIndex(0);
   }, [currentLevel]);
 
-  // 학습 시작 시 진도 업데이트
+  // 현재 진행 상태 확인 및 학습 시작 시 진도 업데이트
+  const [currentProgress, setCurrentProgress] = useState<ModuleProgress | null>(null);
+  const [isRestarting, setIsRestarting] = useState(false);
+  
   useEffect(() => {
-    const startLearning = async () => {
+    const checkAndUpdateProgress = async () => {
       if (!moduleId || !sessionId) return;
       try {
+        // 현재 진행 상태 조회
+        const progress = await getModuleProgress(moduleId, sessionId);
+        setCurrentProgress(progress);
+        
+        // 이미 완료된 상태가 아닐 때만 'learning'으로 업데이트
+        if (progress.status !== 'completed') {
         await updateModuleProgress(moduleId, sessionId, { status: 'learning' });
+          // 업데이트 후 상태 갱신
+          const updated = await getModuleProgress(moduleId, sessionId);
+          setCurrentProgress(updated);
+        }
       } catch (error) {
-        console.error('Failed to update progress:', error);
+        console.error('Failed to check/update progress:', error);
       }
     };
-    startLearning();
+    checkAndUpdateProgress();
   }, [moduleId, sessionId]);
+
+  // 재시작 핸들러
+  const handleRestart = async () => {
+    if (!moduleId || !sessionId || !confirm('이 모듈을 처음부터 다시 시작하시겠습니까? 진행 상태가 초기화됩니다.')) {
+      return;
+    }
+    
+    setIsRestarting(true);
+    try {
+      // 진행 상태를 'learning'으로 재설정 (완료 상태 해제, force=true로 덮어쓰기)
+      await updateModuleProgress(moduleId, sessionId, { status: 'learning', force: true });
+      const updated = await getModuleProgress(moduleId, sessionId);
+      setCurrentProgress(updated);
+      
+      // 학습 상태 초기화
+      setPhase('learning');
+      setCurrentLevel('basic');
+      setCurrentSectionIndex(0);
+      setCompletedLevels({});
+      setChatMessages([]);
+      setResult(null);
+    } catch (error) {
+      console.error('Failed to restart module:', error);
+      alert('재시작에 실패했습니다.');
+    } finally {
+      setIsRestarting(false);
+    }
+  };
 
   // 현재 레벨 마지막 섹션까지 도달하면 해당 레벨 완료로 마킹
   useEffect(() => {
@@ -690,10 +732,30 @@ const ModuleLearningPage: React.FC = () => {
               
               <div className="flex items-center justify-between">
                 <div className="flex-1">
-                  <h1 className="text-xl font-bold text-foreground mb-1 truncate">{module.nameKo}</h1>
+                  <div className="flex items-center gap-2 mb-1">
+                    <h1 className="text-xl font-bold text-foreground truncate">{module.nameKo}</h1>
+                    {currentProgress?.status === 'completed' && (
+                      <Badge className="bg-green-500/20 text-green-600 hover:bg-green-500/20 border border-green-500/30">
+                        <CheckCircle className="w-3 h-3 mr-1" />
+                        완료
+                      </Badge>
+                    )}
+                  </div>
                   <p className="text-muted-foreground text-xs truncate">{module.description}</p>
                 </div>
                 <div className="flex items-center gap-4 text-xs text-muted-foreground ml-6 flex-shrink-0">
+                  {currentProgress?.status === 'completed' && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={handleRestart}
+                      disabled={isRestarting}
+                      className="text-xs"
+                    >
+                      <RotateCcw className="w-3 h-3 mr-1" />
+                      {isRestarting ? '재시작 중...' : '재시작'}
+                    </Button>
+                  )}
                   <span className="flex items-center gap-1 bg-muted/30 px-2 py-1 rounded">
                     <Clock className="w-3 h-3 text-primary/70" />
                     약 {module.estimatedMinutes}분

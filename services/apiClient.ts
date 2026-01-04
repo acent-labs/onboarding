@@ -1000,9 +1000,11 @@ export async function getProgressSummary(
   sessionId: string,
   product: string = 'freshservice'
 ): Promise<ProgressSummary> {
-  return apiFetch<ProgressSummary>(
+  const result = await apiFetch<ProgressSummary>(
     `/curriculum/progress?sessionId=${encodeURIComponent(sessionId)}&product=${encodeURIComponent(product)}`
   );
+  
+  return result;
 }
 
 /**
@@ -1023,7 +1025,7 @@ export async function getModuleProgress(
 export async function updateModuleProgress(
   moduleId: string,
   sessionId: string,
-  options: { status?: string; learningCompleted?: boolean }
+  options: { status?: string; learningCompleted?: boolean; force?: boolean }
 ): Promise<ModuleProgress> {
   return apiFetch<ModuleProgress>(
     `/curriculum/modules/${encodeURIComponent(moduleId)}/progress`,
@@ -1033,6 +1035,7 @@ export async function updateModuleProgress(
         sessionId,
         status: options.status,
         learningCompleted: options.learningCompleted,
+        force: options.force || false,
       }),
     }
   );

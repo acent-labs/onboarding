@@ -591,7 +591,9 @@ const KnowledgeSection: React.FC = () => {
                     </div>
                   </div>
                 ) : null}
-                <div className="flex-1 min-h-[320px] bg-muted/50 border border-border rounded-xl overflow-hidden">
+                <div
+                  className="flex-1 min-h-[320px] bg-muted/50 border border-border rounded-xl overflow-y-auto overflow-x-hidden"
+                >
                   <KnowledgeEditor
                     editorRef={editorRef}
                     onHtmlChange={setNewContentHtml}
