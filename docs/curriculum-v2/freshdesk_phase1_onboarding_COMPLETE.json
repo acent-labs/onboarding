@@ -1,0 +1,507 @@
+{
+  "phase_info": {
+    "phase_number": 1,
+    "phase_name": "온보딩 (Foundation)",
+    "phase_name_en": "Onboarding (Foundation)",
+    "phase_description": "Freshdesk 도입 초기 단계로, 고객 문의를 받고 팀원이 대응할 수 있는 기본 환경을 구축합니다.",
+    "target_audience": "Freshdesk를 처음 사용하는 CS 담당자 및 기술영업 컨설턴트",
+    "learning_objectives": [
+      "Freshdesk의 기본 인터페이스와 대시보드를 이해한다",
+      "티켓의 개념과 생명주기를 설명할 수 있다",
+      "팀원을 추가하고 역할/권한을 설정할 수 있다",
+      "기본적인 티켓 처리 업무를 수행할 수 있다"
+    ],
+    "total_modules": 4,
+    "estimated_total_minutes": 188
+  },
+  "modules": [
+    {
+      "module_id": "new-fd-onboarding-01",
+      "module_order": 1,
+      "module_name_ko": "Freshdesk 시작하기",
+      "module_name_en": "Getting Started with Freshdesk",
+      "module_slug": "getting-started",
+      "module_description": "Freshdesk의 기본 인터페이스와 대시보드를 이해하고 초기 설정을 완료합니다.",
+      "estimated_minutes": 42,
+      "prerequisite_module_ids": [],
+      "learning_objectives": [
+        "Freshdesk 계정 생성 및 초기 설정을 완료할 수 있다",
+        "대시보드의 주요 위젯과 지표를 해석할 수 있다",
+        "좌측 네비게이션을 통해 주요 기능에 접근할 수 있다"
+      ],
+      "sections": [
+        {
+          "section_id": "new-fd-onboarding-01-s01",
+          "section_type": "overview",
+          "section_order": 1,
+          "title_ko": "왜 Freshdesk인가?",
+          "title_en": "Why Freshdesk?",
+          "estimated_minutes": 5,
+          "content_md": "## 🎯 한 줄 요약\nFreshdesk는 **이메일, 전화, 채팅 등 모든 고객 문의를 한 곳에서 관리**하는 헬프데스크 솔루션입니다.\n\n## 😫 고객사가 겪는 문제\n- 고객 문의가 여러 채널(이메일, 전화, 메신저)로 흩어져 추적이 어렵습니다\n- 담당자 부재 시 인수인계가 누락되어 고객 불만이 발생합니다\n- 응답 시간이 지연되어도 모니터링할 방법이 없습니다\n- 반복되는 질문에 매번 같은 답변을 작성해야 합니다\n\n## ✅ Freshdesk가 제공하는 가치\n1. **통합 관리**: 모든 채널의 문의를 티켓으로 통합하여 한 화면에서 처리\n2. **협업 강화**: 팀원 간 티켓 공유, 노트 작성, 상태 추적으로 인수인계 완벽 지원\n3. **자동화**: 반복 업무(할당, 알림, 상태 변경)를 규칙으로 자동화\n4. **성과 측정**: 응답 시간, 해결율, 고객 만족도를 실시간으로 측정\n5. **셀프서비스**: 지식베이스 구축으로 고객이 스스로 해결하도록 유도"
+        },
+        {
+          "section_id": "new-fd-onboarding-01-s02",
+          "section_type": "concept",
+          "section_order": 2,
+          "title_ko": "Freshdesk 핵심 개념",
+          "title_en": "Core Concepts of Freshdesk",
+          "estimated_minutes": 7,
+          "content_md": "## 📚 반드시 알아야 할 용어\n\n| 용어 | 설명 | 고객사 설명 예시 |\n|------|------|------------------|\n| **Ticket** | 고객 문의를 추적하는 최소 단위 | \"고객님의 문의는 티켓 번호 #1234로 등록되었습니다\" |\n| **Agent** | 티켓을 처리하는 상담원 | \"저희 기술 지원 팀 에이전트가 담당합니다\" |\n| **Group** | 역할별로 묶인 에이전트 그룹 | \"결제 문의는 청구팀 그룹으로 자동 전달됩니다\" |\n| **Status** | 티켓의 현재 처리 단계 | \"귀하의 티켓은 현재 '처리중' 상태입니다\" |\n| **SLA** | 응답/해결 목표 시간 약속 | \"중요 문의는 2시간 내 응답을 보장합니다\" |\n| **Automation** | 반복 작업을 자동으로 수행하는 규칙 | \"야간 문의는 자동으로 당직 팀에 할당됩니다\" |\n\n## 🔄 Freshdesk 작동 흐름\n```\n[고객 문의] → [티켓 생성] → [자동 할당] → [에이전트 처리] → [고객 회신] → [티켓 종료]\n     ↓              ↓              ↓              ↓              ↓              ↓\n  이메일/채팅    자동번호부여    규칙기반분배    답변작성      상태변경      성과분석\n```"
+        },
+        {
+          "section_id": "new-fd-onboarding-01-s03",
+          "section_type": "feature-guide",
+          "section_order": 3,
+          "title_ko": "계정 생성 및 초기 설정",
+          "title_en": "Account Setup",
+          "estimated_minutes": 10,
+          "content_md": "## ⚙️ 초기 설정 단계\n\n### Step 1: 계정 생성\n1. freshdesk.com/signup 접속\n2. 회사 이메일, 이름, 회사명 입력\n3. 헬프데스크 URL 설정 (예: yourcompany.freshdesk.com)\n4. 이메일 인증 완료\n\n### Step 2: 기본 정보 설정\n**경로**: Admin > Account > Helpdesk Settings\n\n설정해야 할 항목:\n- **헬프데스크 이름**: 고객에게 표시될 회사명\n- **기본 언어**: 한국어 또는 영어 선택\n- **시간대**: Asia/Seoul (GMT+9)\n- **날짜 형식**: YYYY-MM-DD 또는 MM/DD/YYYY\n- **지원 이메일**: support@yourcompany.com (기본 수신 주소)\n\n### Step 3: 회사 정보 입력\n**경로**: Admin > Account > Company Profile\n\n- 회사 로고 업로드 (권장: 200x50px PNG)\n- 회사 주소 및 연락처\n- 비즈니스 타임존\n\n## ⚠️ 초기 설정 시 주의사항\n- **헬프데스크 URL은 생성 후 변경 불가**하므로 신중히 선택\n- 지원 이메일은 회사 도메인 이메일 사용 권장 (신뢰도 향상)\n- 시간대 설정은 SLA 계산에 영향을 주므로 정확히 설정"
+        },
+        {
+          "section_id": "new-fd-onboarding-01-s04",
+          "section_type": "feature-guide",
+          "section_order": 4,
+          "title_ko": "대시보드 이해하기",
+          "title_en": "Understanding the Dashboard",
+          "estimated_minutes": 8,
+          "content_md": "## 📊 대시보드 주요 위젯\n\n### 1. 티켓 요약 지표\n화면 상단에 표시되는 실시간 지표:\n\n| 지표 | 의미 | 조치가 필요한 경우 |\n|------|------|-------------------|\n| **Unresolved** | 미해결 티켓 총 수 | 급격히 증가 시 팀 증원 검토 |\n| **Overdue** | SLA 기한 초과 티켓 | 즉시 우선 처리 필요 |\n| **Due today** | 오늘 마감 예정 티켓 | 오전에 우선순위 점검 |\n| **Open** | 처리 중인 티켓 | 담당자 할당 확인 |\n| **On hold** | 보류 중인 티켓 | 고객/제3자 답변 대기 |\n| **Unassigned** | 미할당 티켓 | 즉시 담당자 지정 필요 |\n\n### 2. 오늘의 동향 (Today's Trends)\n- **신규 티켓 수**: 어제 대비 증감률 표시\n- **평균 응답 시간**: FRT (First Response Time) 추이\n- **해결된 티켓**: 오늘 처리 완료된 건수\n\n### 3. 가용 에이전트 (Available Agents)\n현재 온라인 상태인 팀원 수와 처리 중인 티켓 수를 실시간 표시\n\n### 4. 최근 활동 (Recent Activities)\n- 티켓 생성, 할당, 상태 변경 이력을 타임라인으로 표시\n- 실시간 모니터링 및 즉각 대응 가능\n\n## 💡 대시보드 활용 팁\n- **아침 출근 시**: Overdue와 Due Today를 먼저 확인\n- **오후 점검 시**: Unassigned 티켓이 쌓이지 않았는지 확인\n- **퇴근 전**: On hold 티켓 중 답변 도착 건이 있는지 확인"
+        },
+        {
+          "section_id": "new-fd-onboarding-01-s05",
+          "section_type": "feature-guide",
+          "section_order": 5,
+          "title_ko": "좌측 네비게이션 탐색",
+          "title_en": "Navigation Menu",
+          "estimated_minutes": 5,
+          "content_md": "## 🧭 주요 메뉴 구조\n\n### 📥 Tickets (티켓)\n- 모든 티켓 목록 및 필터링\n- 나에게 할당된 티켓 바로가기\n- 티켓 생성 및 검색\n\n### 👥 Contacts (연락처)\n- 고객 정보 관리\n- 회사(Company) 정보 연결\n- 고객별 티켓 이력 조회\n\n### 💬 Conversations (대화)\n- 이메일, 채팅, 전화 통합 보기\n- 고객과의 모든 커뮤니케이션 이력\n\n### 📚 Solutions (지식베이스)\n- FAQ 및 가이드 문서 관리\n- 카테고리/폴더 구조 설정\n- 문서 승인 워크플로우\n\n### 📊 Analytics (분석)\n- 성과 리포트 및 대시보드\n- 에이전트 생산성 분석\n- 고객 만족도(CSAT) 추적\n\n### ⚙️ Admin (관리자)\n- 팀원 및 권한 관리\n- 자동화 규칙 설정\n- SLA 정책 구성\n- 이메일/채팅 채널 연동\n\n## 🎯 역할별 주로 사용하는 메뉴\n- **CS 담당자**: Tickets, Contacts, Solutions\n- **팀장/관리자**: Analytics, Admin\n- **컨설턴트**: Admin (고객사 설정 지원)"
+        },
+        {
+          "section_id": "new-fd-onboarding-01-s06",
+          "section_type": "practice",
+          "section_order": 6,
+          "title_ko": "실습: 첫 헬프데스크 설정하기",
+          "title_en": "Practice: First Helpdesk Setup",
+          "estimated_minutes": 12,
+          "content_md": "## 🎓 실습 시나리오\n\n### 상황\n\"테크스타트\" 회사가 Freshdesk를 도입하여 고객 지원을 시작하려고 합니다.\n- 회사명: 테크스타트 (TechStart)\n- 지원 이메일: support@techstart.com\n- 영업시간: 평일 09:00-18:00 (한국 시간)\n- CS 팀 구성: 팀장 1명, 상담원 2명\n\n### 실습 단계\n\n#### Step 1: 헬프데스크 기본 설정\n1. Admin > Account > Helpdesk Settings 이동\n2. 다음 정보 입력:\n   - Helpdesk Name: \"테크스타트 고객지원\"\n   - Support Email: support@techstart.com\n   - Language: 한국어\n   - Time Zone: (GMT+09:00) Seoul\n\n#### Step 2: 대시보드 확인\n1. 좌측 상단 \"Dashboard\" 클릭\n2. 현재 표시되는 위젯 확인:\n   - Unresolved Tickets: 0건 (신규 계정이므로)\n   - Available Agents: 1명 (본인)\n\n#### Step 3: 메뉴 탐색 연습\n1. Tickets 메뉴 클릭 → 빈 티켓 목록 확인\n2. Solutions 메뉴 클릭 → 지식베이스 준비 상태 확인\n3. Admin 메뉴 클릭 → 설정 옵션들 둘러보기\n\n### ✅ 완료 기준\n- [ ] 헬프데스크 이름이 \"테크스타트 고객지원\"으로 설정됨\n- [ ] 시간대가 Seoul(GMT+9)로 설정됨\n- [ ] 대시보드에서 주요 지표를 확인할 수 있음\n- [ ] 좌측 메뉴를 통해 각 기능에 접근할 수 있음\n\n### 💼 고객사 컨설팅 포인트\n\"초기 설정 시 가장 중요한 것은 **정확한 시간대 설정**입니다. SLA 계산이 이를 기반으로 하기 때문에 잘못 설정하면 약속한 응답 시간을 지키지 못하는 문제가 발생할 수 있습니다.\""
+        },
+        {
+          "section_id": "new-fd-onboarding-01-s07",
+          "section_type": "knowledge-check",
+          "section_order": 7,
+          "title_ko": "지식 점검 퀴즈",
+          "title_en": "Knowledge Check Quiz",
+          "estimated_minutes": 5,
+          "quiz_questions": [
+            {
+              "question_id": "new-fd-onboarding-01-q01",
+              "question": "고객사의 CS 팀장이 \"우리 회사는 서울과 뉴욕에 지원팀이 있는데, Freshdesk에서 시간대를 어떻게 설정해야 하나요?\"라고 질문했습니다. 가장 적절한 답변은?",
+              "context": "글로벌 팀 운영 시 시간대 설정 방법",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "계정 기본 시간대를 서울로 설정하고, 뉴욕 팀원은 개인 프로필에서 각자 시간대를 변경하면 됩니다"
+                },
+                {
+                  "id": "b",
+                  "text": "서울과 뉴욕용으로 각각 별도의 Freshdesk 계정을 만들어야 합니다"
+                },
+                {
+                  "id": "c",
+                  "text": "시간대는 하나만 설정 가능하므로 본사가 있는 서울 시간으로 통일해야 합니다"
+                },
+                {
+                  "id": "d",
+                  "text": "Business Hours를 지역별로 2개 생성하고 각 그룹에 할당하면 됩니다"
+                }
+              ],
+              "correct_choice_id": "a",
+              "explanation": "Freshdesk는 계정 전체의 기본 시간대를 하나 설정하되, 각 에이전트가 개인 프로필(Admin > Profile Settings > Time Zone)에서 자신의 시간대를 별도로 설정할 수 있습니다. 이렇게 하면 각 팀원이 자신의 현지 시간 기준으로 티켓을 확인하면서도 SLA는 비즈니스 시간 정책에 따라 정확히 계산됩니다. Business Hours는 영업 시간 설정이지 시간대 설정이 아닙니다.",
+              "learning_point": "글로벌 팀 운영 시 개인별 시간대 설정 기능을 활용하여 각자의 현지 시간으로 작업할 수 있습니다."
+            },
+            {
+              "question_id": "new-fd-onboarding-01-q02",
+              "question": "대시보드에서 'Overdue' 티켓이 15건으로 표시되고 있습니다. 이것이 의미하는 바는?",
+              "context": "대시보드 지표 해석",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "15건의 티켓이 아직 고객에게 답변을 보내지 않은 상태입니다"
+                },
+                {
+                  "id": "b",
+                  "text": "15건의 티켓이 SLA에서 정한 응답 또는 해결 기한을 초과했습니다"
+                },
+                {
+                  "id": "c",
+                  "text": "15건의 티켓이 오늘 마감 예정이므로 빠르게 처리해야 합니다"
+                },
+                {
+                  "id": "d",
+                  "text": "15건의 티켓이 담당자 없이 방치되어 있습니다"
+                }
+              ],
+              "correct_choice_id": "b",
+              "explanation": "'Overdue'는 SLA 정책에서 설정한 First Response Time(첫 응답 시간) 또는 Resolution Time(해결 시간) 목표를 초과한 티켓을 의미합니다. 예를 들어 'High Priority 티켓은 2시간 내 응답'이라는 SLA가 있는데 3시간이 지나도록 답변하지 않으면 Overdue로 표시됩니다. 이는 즉시 우선 처리가 필요한 티켓입니다.",
+              "learning_point": "Overdue 티켓은 SLA 위반 상태이므로 팀 성과에 부정적 영향을 주며, 고객 불만으로 이어질 수 있어 최우선 처리가 필요합니다."
+            },
+            {
+              "question_id": "new-fd-onboarding-01-q03",
+              "question": "고객사가 \"헬프데스크 URL을 company-support.freshdesk.com으로 만들었는데, company.freshdesk.com으로 변경하고 싶다\"고 요청했습니다. 어떻게 안내해야 하나요?",
+              "context": "헬프데스크 URL 변경 정책",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Admin > Account > Helpdesk Settings에서 URL을 직접 수정할 수 있습니다"
+                },
+                {
+                  "id": "b",
+                  "text": "Freshdesk 고객지원팀에 요청하면 1회에 한해 변경 가능합니다"
+                },
+                {
+                  "id": "c",
+                  "text": "헬프데스크 URL은 생성 후 변경이 불가능하므로 새 계정을 만들어야 합니다"
+                },
+                {
+                  "id": "d",
+                  "text": "유료 플랜으로 업그레이드하면 URL 변경이 가능합니다"
+                }
+              ],
+              "correct_choice_id": "c",
+              "explanation": "Freshdesk의 헬프데스크 URL(subdomain)은 계정 생성 시 한 번만 설정 가능하며, 이후에는 **절대 변경할 수 없습니다**. 이는 보안 및 데이터 무결성 이유로 Freshdesk의 정책입니다. 따라서 URL을 변경하려면 새 계정을 만들고 데이터를 마이그레이션해야 합니다. 이런 이유로 초기 설정 시 신중하게 URL을 선택하도록 고객사에게 안내해야 합니다.",
+              "learning_point": "헬프데스크 URL은 영구적이므로 초기 설정 시 회사의 브랜드 정책과 향후 확장 계획을 고려하여 신중히 결정해야 합니다."
+            }
+          ]
+        },
+        {
+          "section_id": "new-fd-onboarding-01-s08",
+          "section_type": "quick-reference",
+          "section_order": 8,
+          "title_ko": "빠른 참조 가이드",
+          "title_en": "Quick Reference Guide",
+          "estimated_minutes": 3,
+          "content_md": "## 📋 초기 설정 체크리스트\n\n### 계정 생성 직후 반드시 확인\n- [ ] 헬프데스크 이름 설정 완료\n- [ ] 지원 이메일 주소 설정 및 인증\n- [ ] 시간대가 회사 위치에 맞게 설정됨\n- [ ] 회사 로고 업로드 완료\n\n### 대시보드 모니터링 주요 지표\n- [ ] **Overdue**: 0건 유지 목표\n- [ ] **Unassigned**: 10분 이내 할당 원칙\n- [ ] **Due Today**: 오전 우선순위 점검\n\n### 고객사 컨설팅 시 확인사항\n- [ ] \"헬프데스크 URL은 변경 불가\"를 명확히 안내했는가?\n- [ ] 시간대 설정이 SLA에 영향을 준다고 설명했는가?\n- [ ] 대시보드 지표의 의미를 이해시켰는가?\n\n## 🔗 자주 사용하는 경로\n```\n기본 설정: Admin > Account > Helpdesk Settings\n회사 정보: Admin > Account > Company Profile\n대시보드: 좌측 상단 Dashboard 클릭\n```\n\n## ⚠️ 흔한 실수 방지\n1. **시간대를 UTC로 설정**: 한국은 반드시 Seoul(GMT+9) 선택\n2. **개인 이메일로 지원 주소 설정**: 회사 도메인 이메일 사용 권장\n3. **헬프데스크 URL에 특수문자 사용**: 영문 소문자와 하이픈(-)만 사용"
+        }
+      ]
+    },
+    {
+      "module_id": "new-fd-onboarding-02",
+      "module_order": 2,
+      "module_name_ko": "티켓의 이해와 생명주기",
+      "module_name_en": "Understanding Tickets and Lifecycle",
+      "module_slug": "ticket-lifecycle",
+      "module_description": "티켓의 개념, 주요 필드, 상태 변화 흐름을 이해하고 티켓 생명주기를 관리하는 방법을 학습합니다.",
+      "estimated_minutes": 48,
+      "prerequisite_module_ids": [
+        "new-fd-onboarding-01"
+      ],
+      "learning_objectives": [
+        "티켓의 정의와 역할을 설명할 수 있다",
+        "티켓의 주요 필드(Status, Priority, Type, Source 등)를 이해하고 활용할 수 있다",
+        "티켓의 생명주기(Open → Pending → Resolved → Closed)를 관리할 수 있다"
+      ],
+      "sections": [
+        {
+          "section_id": "new-fd-onboarding-02-s01",
+          "section_type": "overview",
+          "section_order": 1,
+          "title_ko": "티켓은 '업무의 단위'다",
+          "title_en": "Tickets as Work Units",
+          "estimated_minutes": 5,
+          "content_md": "## 🎯 한 줄 요약\n티켓은 고객 문의를 **기록·추적·책임**으로 바꾸는 최소 단위입니다.\n\n## 😫 티켓 시스템 없이 겪는 문제\n- **문의 유실**: 이메일이 스팸으로 분류되거나 인박스에 묻혀 놓침\n- **중복 작업**: 같은 고객이 여러 채널로 문의했는데 각각 다른 담당자가 응대\n- **인수인계 실패**: 담당자가 퇴사하거나 휴가 중일 때 처리 이력을 찾을 수 없음\n- **성과 측정 불가**: \"우리 팀이 하루에 몇 건 처리했지?\" 답변 불가\n\n## ✅ 티켓 시스템의 가치\n\n### 1. 추적성 (Traceability)\n- 고유 티켓 번호로 모든 대화 이력 조회\n- 언제, 누가, 무엇을 했는지 타임라인 기록\n- 고객이 \"저번에 말씀드린 건...\" → 즉시 이력 확인 가능\n\n### 2. 책임 소재 (Accountability)\n- 담당자(Agent)가 명확히 지정됨\n- SLA 기한 자동 추적 (\"2시간 내 응답\" 약속 이행 여부)\n- 처리 지연 시 자동 에스컬레이션\n\n### 3. 협업 (Collaboration)\n- 팀원 간 Private Note로 내부 논의\n- 다른 부서로 티켓 전달 시 이력 유지\n- 여러 명이 동시에 티켓 확인 가능\n\n### 4. 지식화 (Knowledge Building)\n- 반복되는 문의 패턴 발견\n- 우수 답변을 지식베이스로 전환\n- 신입 교육 자료로 활용\n\n## 💼 고객사 설명 예시\n\"티켓은 마치 택배 송장번호와 같습니다. 고객님이 문의하신 내용에 고유 번호가 부여되어, 언제든 이 번호로 처리 상황을 조회하고 담당자를 찾을 수 있습니다.\""
+        },
+        {
+          "section_id": "new-fd-onboarding-02-s02",
+          "section_type": "concept",
+          "section_order": 2,
+          "title_ko": "티켓의 핵심 필드 이해",
+          "title_en": "Understanding Ticket Fields",
+          "estimated_minutes": 10,
+          "content_md": "## 📋 티켓을 구성하는 8대 필드\n\n| 필드명 | 역할 | 설정 방법 | 고객사 설명 예시 |\n|--------|------|-----------|------------------|\n| **Subject** | 문의 제목 | 고객 또는 에이전트 입력 | \"로그인이 안 돼요\" |\n| **Description** | 문의 본문 | 이메일 본문 자동 변환 | 상세한 문제 설명 |\n| **Status** | 처리 단계 | Open/Pending/Resolved/Closed | \"현재 처리 중입니다\" |\n| **Priority** | 중요도 | Low/Medium/High/Urgent | \"긴급 문의로 분류됩니다\" |\n| **Type** | 문의 유형 | Question/Incident/Problem 등 | \"기술 문제로 분류\" |\n| **Source** | 유입 경로 | Email/Phone/Chat/Portal | \"채팅으로 접수됨\" |\n| **Group** | 담당 팀 | 청구팀/기술팀 등 | \"결제팀이 담당합니다\" |\n| **Agent** | 담당자 | 특정 에이전트 지정 | \"김철수 님이 처리합니다\" |\n\n## 🎯 Priority (우선순위) 기준 예시\n\n```\n🔴 Urgent (긴급): 서비스 전체 중단, 보안 사고\n   → SLA: 30분 내 응답\n   → 예시: \"결제 시스템이 다운되었습니다\"\n\n🟠 High (높음): 핵심 기능 오류, VIP 고객 문의\n   → SLA: 2시간 내 응답\n   → 예시: \"주문이 처리되지 않습니다\"\n\n🟡 Medium (보통): 일부 기능 오류, 일반 문의\n   → SLA: 8시간 내 응답\n   → 예시: \"프로필 사진이 업로드 안 됩니다\"\n\n🟢 Low (낮음): 개선 제안, 일반 질문\n   → SLA: 24시간 내 응답\n   → 예시: \"다크모드 기능 추가해주세요\"\n```\n\n## 🔄 Type (유형) 구분\n\n| Type | 정의 | 처리 방식 |\n|------|------|----------|\n| **Question** | 사용 방법 질문 | 지식베이스 참조하여 답변 |\n| **Incident** | 서비스 장애 | 즉시 기술팀 투입 |\n| **Problem** | 근본 원인 조사 | 여러 Incident를 묶어 분석 |\n| **Feature Request** | 기능 요청 | 제품팀에 전달 |\n| **Refund** | 환불 요청 | 청구팀 처리 |\n\n## 💡 필드 활용 전략\n\n### Source별 자동화 전략\n- **Email**: 자동 티켓 생성, 이메일 답변 발송\n- **Chat**: 실시간 할당, 15분 내 응답 SLA\n- **Phone**: 통화 후 티켓 수동 생성, 통화 녹음 첨부\n- **Portal**: 고객이 직접 Type과 Priority 선택 가능\n\n### Group별 전문화\n- **Billing Group**: 결제, 환불, 구독 문의\n- **Technical Group**: 버그, 오류, 설정 문의\n- **Sales Group**: 견적, 데모, 계약 문의"
+        },
+        {
+          "section_id": "new-fd-onboarding-02-s03",
+          "section_type": "concept",
+          "section_order": 3,
+          "title_ko": "티켓 생명주기 (Lifecycle)",
+          "title_en": "Ticket Lifecycle",
+          "estimated_minutes": 8,
+          "content_md": "## 🔄 티켓의 4단계 여정\n\n```\n[생성] → [처리중] → [해결됨] → [종료]\n  ↓         ↓          ↓         ↓\n New      Open      Resolved  Closed\n          ↓\n       Pending\n      (일시정지)\n```\n\n## 📊 각 상태의 정의와 전환 조건\n\n### 1️⃣ New / Open (신규 / 열림)\n**정의**: 새로 접수되었거나 담당자 조치가 필요한 상태\n\n**전환 조건**:\n- 고객이 문의 제출 시 자동으로 'New' 생성\n- 에이전트가 확인하면 'Open'으로 변경\n\n**SLA**: 타이머 작동 중 (응답 기한 카운트다운)\n\n**에이전트 행동**:\n- 티켓 내용 파악\n- 담당자 할당\n- 첫 응답 작성 시작\n\n---\n\n### 2️⃣ Pending (보류)\n**정의**: 고객이나 제3자의 추가 정보를 기다리는 상태\n\n**전환 조건**:\n- 에이전트가 \"고객님, 로그인 계정을 알려주세요\" 요청 후 대기\n- 외부 업체(예: 배송사)의 답변 대기\n\n**SLA**: ⏸️ 타이머 일시정지 (기한 계산 중단)\n\n**자동 복귀 규칙**:\n- 고객이 답변하면 자동으로 'Open'으로 복귀\n- 7일간 답변 없으면 자동 'Closed' (설정 가능)\n\n---\n\n### 3️⃣ Resolved (해결됨)\n**정의**: 에이전트가 해결책을 제공한 상태\n\n**전환 조건**:\n- 에이전트가 \"문제를 해결했습니다\" 답변 후 'Send and Resolve' 클릭\n- 고객에게 만족도 조사(CSAT) 이메일 자동 발송\n\n**SLA**: ✅ 해결 시간 목표 달성 여부 기록\n\n**대기 기간**:\n- 고객이 \"아직 안 됩니다\" 재개방 가능 (기본 72시간)\n- 이의 없으면 자동으로 'Closed'로 전환\n\n---\n\n### 4️⃣ Closed (종료)\n**정의**: 고객이 해결을 승인했거나 일정 기간 이의 제기 없음\n\n**전환 조건**:\n- Resolved 상태에서 72시간 경과 (자동)\n- 고객이 만족도 조사에 응답 (즉시 종료)\n- 에이전트가 수동으로 종료\n\n**재개방 가능 여부**: 설정에 따라 가능 (기본 30일 내)\n\n**보관 정책**: Closed 후 120일 경과 시 'Archived' (읽기 전용)\n\n---\n\n## ⚠️ 상태 관리 주의사항\n\n| 실수 사례 | 올바른 처리 |\n|-----------|-------------|\n| ❌ 고객 답변 대기인데 Open 유지 | ✅ Pending으로 변경하여 SLA 보호 |\n| ❌ 아직 해결 안 됐는데 Resolved 처리 | ✅ 실제 해결 후에만 Resolved |\n| ❌ 테스트 티켓을 Closed로 놔둠 | ✅ Spam으로 분류하거나 삭제 |\n| ❌ 오래된 Pending 티켓 방치 | ✅ 주간 점검으로 7일 이상 Pending 확인 |\n\n## 💼 고객사 설명 예시\n\"티켓 상태는 마치 택배 배송 추적과 같습니다.\n- **Open**: 배송 준비 중\n- **Pending**: 수령인 부재로 보관 중\n- **Resolved**: 배송 완료\n- **Closed**: 최종 인도 확인\""
+        },
+        {
+          "section_id": "new-fd-onboarding-02-s04",
+          "section_type": "feature-guide",
+          "section_order": 4,
+          "title_ko": "티켓 필드 커스터마이징",
+          "title_en": "Customizing Ticket Fields",
+          "estimated_minutes": 10,
+          "content_md": "## ⚙️ 티켓 필드 추가 및 수정\n\n### 기본 필드 수정하기\n**경로**: Admin > Ticket Fields\n\n#### Priority 값 변경 예시\n기본값을 비즈니스에 맞게 수정:\n\n**Before (기본)**:\n- Low\n- Medium\n- High\n- Urgent\n\n**After (커스텀)**:\n- 낮음 (Low)\n- 보통 (Medium)\n- 높음 (High)\n- 긴급 (Urgent)\n- 🔥 치명적 (Critical) ← 신규 추가\n\n#### Type 값 추가 예시\n**기본값**에 산업별 맞춤 유형 추가:\n\n**전자상거래**:\n- 주문 문의\n- 배송 지연\n- 반품/교환\n- 환불 요청\n\n**SaaS 서비스**:\n- 계정 이슈\n- 통합 문의\n- 기능 요청\n- 버그 리포트\n\n---\n\n### 커스텀 필드 생성하기\n\n#### Step 1: 새 필드 추가\n1. Admin > Ticket Fields > Add Field\n2. Field Type 선택:\n   - **Single Line Text**: 짧은 텍스트 (예: 주문번호)\n   - **Paragraph**: 긴 텍스트 (예: 에러 메시지)\n   - **Dropdown**: 선택 목록 (예: 제품명)\n   - **Number**: 숫자 (예: 금액)\n   - **Checkbox**: 예/아니오 (예: 긴급 여부)\n   - **Date**: 날짜 (예: 희망 처리일)\n\n#### Step 2: 필드 속성 설정\n```json\n{\n  \"field_name\": \"order_number\",\n  \"display_name\": \"주문번호\",\n  \"field_type\": \"text\",\n  \"required\": true,\n  \"visible_to_customer\": true,\n  \"hint_text\": \"주문 확인 이메일에서 확인하세요\"\n}\n```\n\n#### 설정 옵션:\n- **Required**: 필수 입력 여부\n- **Visible to Customer**: 고객 포털에서 보이는지\n- **Dependent Field**: 다른 필드 값에 따라 표시 (조건부 필드)\n\n---\n\n### 실전 커스텀 필드 예시\n\n#### 💼 사례 1: 전자상거래 회사\n```\n필드명: 주문번호 (Order Number)\n타입: Single Line Text\n필수: Yes\n패턴 검증: ^ORD-[0-9]{6}$ (예: ORD-123456)\n용도: 주문 관련 문의 시 자동으로 주문 시스템 조회\n```\n\n#### 💼 사례 2: SaaS 회사\n```\n필드명: 영향받는 사용자 수 (Affected Users)\n타입: Dropdown\n옵션: 1-10명 / 11-50명 / 51-100명 / 100명 이상\n용도: 우선순위 자동 결정 (100명 이상 → Urgent)\n```\n\n#### 💼 사례 3: 제조업\n```\n필드명: 제품 시리얼 번호 (Serial Number)\n타입: Text\n필수: Yes (보증 문의 시)\n조건부 표시: Type = \"Warranty Claim\"일 때만\n용도: 보증 기간 자동 확인\n```\n\n---\n\n## 🎯 필드 설계 베스트 프랙티스\n\n### ✅ DO (권장)\n1. **명확한 이름**: \"날짜\"가 아닌 \"희망 처리 날짜\"\n2. **힌트 제공**: \"예: 2024-01-15 형식으로 입력\"\n3. **최소화**: 필드가 많으면 고객이 입력을 포기함 (최대 5개 권장)\n4. **기본값 설정**: 드롭다운은 가장 흔한 값을 기본으로\n\n### ❌ DON'T (피해야 할 것)\n1. **중복 필드**: Subject에 이미 있는 정보를 다시 묻지 말 것\n2. **모호한 선택지**: \"기타\"만 있는 드롭다운은 무의미\n3. **너무 긴 이름**: \"고객님이 사용하시는 제품의 정확한 모델명\" → \"제품 모델\"\n\n---\n\n## 💡 고급 활용: 조건부 필드\n\n**시나리오**: \"환불 요청\" 티켓만 \"환불 사유\" 필드 표시\n\n**설정 방법**:\n1. \"환불 사유\" 필드 생성\n2. Dependent on: Type = \"Refund\"\n3. 고객이 Type을 \"Refund\"로 선택하면 필드 자동 표시\n\n**효과**:\n- 일반 문의 시 간결한 양식\n- 환불 요청 시에만 추가 정보 수집"
+        },
+        {
+          "section_id": "new-fd-onboarding-02-s05",
+          "section_type": "practice",
+          "section_order": 5,
+          "title_ko": "실습: 티켓 생명주기 시뮬레이션",
+          "title_en": "Practice: Ticket Lifecycle Simulation",
+          "estimated_minutes": 12,
+          "content_md": "## 🎓 실습 시나리오\n\n### 상황\n당신은 \"클라우드스토어\" 전자상거래 회사의 CS 담당자입니다.\n고객 \"이민수\"님으로부터 다음 문의가 이메일로 접수되었습니다.\n\n---\n\n**From**: minsoo.lee@example.com\n**Subject**: 주문한 노트북이 배송되지 않았습니다\n**내용**:\n```\n안녕하세요.\n지난주 금요일(1월 5일)에 주문한 노트북(주문번호: ORD-789123)이\n오늘(1월 12일)까지도 배송되지 않았습니다.\n예상 배송일은 1월 10일이었는데 무슨 문제인가요?\n급하게 필요한 제품이니 빠른 확인 부탁드립니다.\n```\n\n---\n\n### 실습 단계\n\n#### Step 1: 티켓 자동 생성 확인\n이메일이 Freshdesk에 도착하면 자동으로 티켓 생성:\n\n```json\n{\n  \"ticket_id\": \"#1001\",\n  \"subject\": \"주문한 노트북이 배송되지 않았습니다\",\n  \"requester\": \"이민수 (minsoo.lee@example.com)\",\n  \"status\": \"New\",\n  \"priority\": \"Medium\",\n  \"type\": \"Question\",\n  \"source\": \"Email\",\n  \"group\": \"Unassigned\",\n  \"agent\": \"Unassigned\"\n}\n```\n\n#### Step 2: 티켓 분류 및 할당\n담당자(당신)가 티켓을 확인하고 재분류:\n\n**수정 사항**:\n- **Priority**: Medium → **High** (배송 지연 2일, 고객 불만 표현)\n- **Type**: Question → **Incident** (배송 장애)\n- **Group**: Unassigned → **배송팀**\n- **Agent**: Unassigned → **당신 (김철수)**\n- **Status**: New → **Open**\n- **커스텀 필드 추가**:\n  - 주문번호: ORD-789123\n  - 배송사: CJ대한통운\n\n#### Step 3: 배송 조회 및 Pending 처리\n배송사 시스템을 확인하니 추가 조사가 필요함:\n\n**고객 답변 작성**:\n```\n이민수 고객님,\n\n문의 주셔서 감사합니다.\n주문번호 ORD-789123 건에 대해 배송사에 긴급 조회를 요청했습니다.\n\n배송 상태를 확인하는 대로 (영업일 기준 2시간 내)\n다시 연락드리겠습니다.\n\n불편을 드려 죄송합니다.\n```\n\n**Private Note 작성** (내부용):\n```\n[배송팀 → 물류팀 이관]\n배송사 고객센터에 긴급 조회 요청함 (케이스번호: LOG-2024-0112)\n14시까지 회신 예정\n```\n\n**상태 변경**: Open → **Pending** (배송사 답변 대기)\n→ SLA 타이머 일시정지\n\n#### Step 4: 문제 해결 및 Resolved 처리\n2시간 후 배송사로부터 \"배송 기사 착오로 인근 지점 보관 중\" 회신 받음\n\n**해결 방안 제시**:\n```\n이민수 고객님,\n\n배송 현황을 확인했습니다.\n죄송하게도 배송 기사의 착오로 인근 OO지점에 보관 중이었습니다.\n\n내일(1월 13일) 오전 중 재배송 예정이며,\n배송비 5,000원을 환불 처리해드렸습니다.\n\n다시 한번 불편을 드려 죄송합니다.\n\n배송 추적: [링크]\n```\n\n**상태 변경**: Pending → **Resolved**\n→ 고객에게 CSAT 설문 자동 발송\n\n#### Step 5: 고객 확인 및 Closed\n고객이 만족도 조사에 \"만족\" 응답:\n\n**자동 처리**:\n- 상태: Resolved → **Closed**\n- CSAT 점수: 5/5 기록\n- 티켓 종료 일시: 2024-01-12 16:30\n\n---\n\n## ✅ 학습 점검\n\n### 이 시나리오에서 배운 것\n- [ ] 티켓이 이메일에서 자동 생성되는 과정\n- [ ] Priority와 Type을 상황에 맞게 재분류\n- [ ] Pending 상태를 사용하여 SLA 보호\n- [ ] Private Note로 내부 협업\n- [ ] Resolved 후 자동으로 CSAT 발송\n- [ ] 고객 응답 시 자동으로 Closed 전환\n\n### 실수했다면 이렇게 고치세요\n| 실수 | 문제점 | 올바른 방법 |\n|------|--------|-------------|\n| ❌ Open 상태로 방치 | SLA 위반 위험 | Pending으로 변경 |\n| ❌ 배송사 조회 없이 바로 Resolved | 문제 미해결로 재개방 | 실제 확인 후 Resolved |\n| ❌ Private Note 없이 혼자 처리 | 인수인계 곤란 | 항상 처리 과정 기록 |\n\n---\n\n## 💼 고객사 컨설팅 포인트\n\"배송 지연처럼 **외부 업체 답변 대기** 시 반드시 Pending을 사용하세요.\nSLA 타이머가 멈춰 억울하게 '지연' 평가를 받지 않습니다.\""
+        },
+        {
+          "section_id": "new-fd-onboarding-02-s06",
+          "section_type": "knowledge-check",
+          "section_order": 6,
+          "title_ko": "지식 점검 퀴즈",
+          "title_en": "Knowledge Check Quiz",
+          "estimated_minutes": 5,
+          "quiz_questions": [
+            {
+              "question_id": "new-fd-onboarding-02-q01",
+              "question": "고객사가 \"우리는 B2B 기업인데, 티켓에 '계약 ID'와 '담당 세일즈' 정보를 추가하고 싶다\"고 요청했습니다. 어떻게 안내해야 하나요?",
+              "context": "티켓 커스텀 필드 추가 방법",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Description 필드에 \"계약 ID: XXX, 담당: OOO\" 형식으로 입력하도록 안내합니다"
+                },
+                {
+                  "id": "b",
+                  "text": "Admin > Ticket Fields에서 'Contract ID'와 'Sales Owner' 커스텀 필드를 생성합니다"
+                },
+                {
+                  "id": "c",
+                  "text": "Freshdesk는 B2C 전용이므로 B2B 필드를 추가할 수 없습니다"
+                },
+                {
+                  "id": "d",
+                  "text": "Tags 기능을 사용하여 '#계약ID-123' 형식으로 태그를 추가합니다"
+                }
+              ],
+              "correct_choice_id": "b",
+              "explanation": "Freshdesk는 Admin > Ticket Fields 메뉴에서 비즈니스에 필요한 커스텀 필드를 자유롭게 추가할 수 있습니다. '계약 ID'는 Single Line Text 타입으로, '담당 세일즈'는 Dropdown 타입으로 생성하면 됩니다. 이렇게 하면 자동화 규칙에서 '특정 계약 ID'나 '특정 세일즈 담당자' 조건으로 티켓을 자동 할당하거나 에스컬레이션할 수 있습니다. Description에 입력하는 방법은 검색과 필터링이 어렵고, Tags는 자유 형식이라 일관성이 떨어집니다.",
+              "learning_point": "커스텀 필드를 활용하면 산업 특성에 맞는 정보를 체계적으로 수집하고, 자동화와 리포팅에 활용할 수 있습니다."
+            },
+            {
+              "question_id": "new-fd-onboarding-02-q02",
+              "question": "티켓이 'Pending' 상태일 때와 'Open' 상태일 때의 가장 큰 차이는 무엇인가요?",
+              "context": "티켓 상태별 SLA 처리",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "Pending은 고객에게 보이지 않지만 Open은 고객이 상태를 확인할 수 있습니다"
+                },
+                {
+                  "id": "b",
+                  "text": "Pending 상태에서는 SLA 타이머가 일시정지되지만 Open은 계속 작동합니다"
+                },
+                {
+                  "id": "c",
+                  "text": "Pending은 에이전트가 답변을 작성할 수 없지만 Open은 가능합니다"
+                },
+                {
+                  "id": "d",
+                  "text": "Pending 티켓은 자동으로 다른 에이전트에게 재할당되지만 Open은 유지됩니다"
+                }
+              ],
+              "correct_choice_id": "b",
+              "explanation": "Pending과 Open의 가장 중요한 차이는 SLA 타이머 처리입니다. Pending 상태에서는 '고객이나 제3자의 답변을 기다리는 중'이므로 SLA 해결 시간 목표 카운트다운이 일시정지됩니다. 예를 들어 '8시간 내 해결' SLA가 있는데 이미 6시간이 지난 상태에서 고객에게 추가 정보를 요청했다면, Pending으로 변경하지 않으면 2시간 후 SLA 위반으로 기록됩니다. Pending으로 변경하면 고객이 답변할 때까지 타이머가 멈춰 있다가, 답변이 오면 자동으로 Open으로 돌아가며 타이머가 재개됩니다.",
+              "learning_point": "외부 의존성이 있는 경우 반드시 Pending 상태를 사용하여 팀의 SLA 성과를 보호해야 합니다."
+            },
+            {
+              "question_id": "new-fd-onboarding-02-q03",
+              "question": "고객이 Resolved 상태의 티켓에 \"아직 문제가 해결되지 않았습니다\"라고 답변했습니다. 이때 Freshdesk는 어떻게 동작하나요?",
+              "context": "Resolved 티켓 재개방 정책",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "티켓은 Resolved 상태를 유지하고 새로운 티켓이 자동 생성됩니다"
+                },
+                {
+                  "id": "b",
+                  "text": "티켓이 자동으로 Open 상태로 재개방되어 담당 에이전트에게 알림이 갑니다"
+                },
+                {
+                  "id": "c",
+                  "text": "고객 답변이 무시되고 72시간 후 자동으로 Closed 처리됩니다"
+                },
+                {
+                  "id": "d",
+                  "text": "에이전트가 수동으로 재개방 승인을 해야만 Open으로 돌아갑니다"
+                }
+              ],
+              "correct_choice_id": "b",
+              "explanation": "Freshdesk는 Resolved 상태의 티켓에 고객이 답변하면 자동으로 Open 상태로 재개방(Reopen)합니다. 이때 원래 담당했던 에이전트에게 이메일 알림이 발송되어 '고객이 추가 도움을 요청했다'는 것을 알 수 있습니다. 이는 Freshdesk의 기본 설정이며, 만약 Resolved 후 재개방을 허용하지 않으려면 Admin > Workflows > Ticket Update Rules에서 '고객 답변 시 자동 재개방 방지' 규칙을 추가해야 합니다. 일반적으로는 고객 만족을 위해 재개방을 허용하는 것이 권장됩니다.",
+              "learning_point": "Resolved 상태는 '잠정 해결'이며, 고객 확인 전까지는 언제든 재개방될 수 있으므로 성급하게 Resolved 처리하지 않아야 합니다."
+            },
+            {
+              "question_id": "new-fd-onboarding-02-q04",
+              "question": "고객사가 \"Priority를 '낮음/보통/높음/긴급' 4단계가 아닌 '1급/2급/3급' 3단계로 변경하고 싶다\"고 요청했습니다. 가능한가요?",
+              "context": "티켓 필드 커스터마이징 제약",
+              "choices": [
+                {
+                  "id": "a",
+                  "text": "불가능합니다. Priority는 Freshdesk의 고정 필드이므로 값을 변경할 수 없습니다"
+                },
+                {
+                  "id": "b",
+                  "text": "가능합니다. Admin > Ticket Fields > Priority에서 기존 값을 삭제하고 새 값을 추가하면 됩니다"
+                },
+                {
+                  "id": "c",
+                  "text": "불가능합니다. 4단계는 유지하되 이름만 한글로 변경할 수 있습니다"
+                },
+                {
+                  "id": "d",
+                  "text": "가능하지만 Enterprise 플랜 이상에서만 지원됩니다"
+                }
+              ],
+              "correct_choice_id": "b",
+              "explanation": "Priority, Type, Status 같은 기본 필드도 Admin > Ticket Fields 메뉴에서 값(Choices)을 자유롭게 추가, 수정, 삭제할 수 있습니다. '낮음/보통/높음/긴급' 4개를 삭제하고 '1급/2급/3급' 3개를 추가하는 것이 가능합니다. 단, 주의할 점은 기존에 해당 값으로 생성된 티켓들의 처리입니다. '긴급' 값을 삭제하면 기존 '긴급' 티켓들이 어떤 값으로 변환될지 미리 지정해야 합니다(예: '긴급' → '1급'). 또한 SLA 정책이나 자동화 규칙에서 Priority 값을 조건으로 사용 중이라면 함께 수정해야 합니다.",
+              "learning_point": "Freshdesk의 기본 필드도 비즈니스에 맞게 커스터마이징 가능하지만, 변경 전 기존 데이터와 자동화 규칙 영향도를 반드시 확인해야 합니다."
+            }
+          ]
+        },
+        {
+          "section_id": "new-fd-onboarding-02-s07",
+          "section_type": "quick-reference",
+          "section_order": 7,
+          "title_ko": "빠른 참조 가이드",
+          "title_en": "Quick Reference Guide",
+          "estimated_minutes": 3,
+          "content_md": "## 📋 티켓 처리 체크리스트\n\n### 신규 티켓 접수 시\n- [ ] Subject와 Description 확인\n- [ ] Priority 적절히 설정 (긴급도 판단)\n- [ ] Type 분류 (Question/Incident/Problem 등)\n- [ ] Group과 Agent 할당\n- [ ] 커스텀 필드 입력 (주문번호 등)\n\n### 외부 답변 대기 시\n- [ ] 고객에게 대기 안내 발송\n- [ ] **반드시 Pending으로 상태 변경**\n- [ ] Private Note에 대기 사유 기록\n- [ ] 예상 회신 시간 명시\n\n### 문제 해결 시\n- [ ] 실제 해결 확인 완료\n- [ ] 해결 방법을 고객에게 설명\n- [ ] 'Send and Resolve' 클릭\n- [ ] CSAT 설문 발송 확인\n\n### 티켓 종료 전\n- [ ] 고객이 재문의하지 않았는지 확인\n- [ ] 72시간 대기 후 자동 종료\n- [ ] 반복 문의면 지식베이스 등록 검토\n\n## 🔗 자주 사용하는 경로\n```\n티켓 필드 관리: Admin > Ticket Fields\n커스텀 필드 추가: Admin > Ticket Fields > Add Field\n상태 기본값 변경: Admin > Ticket Fields > Status\n```\n\n## ⚠️ 흔한 실수 방지\n| 실수 | 결과 | 올바른 방법 |\n|------|------|-------------|\n| ❌ 외부 대기인데 Open 유지 | SLA 위반 | Pending 사용 |\n| ❌ 미해결인데 Resolved | 고객 불만 재개방 | 확실한 해결 후 처리 |\n| ❌ Priority를 항상 Medium | 긴급 건 놓침 | 상황별 적절히 분류 |\n| ❌ Private Note 미작성 | 인수인계 불가 | 모든 처리 과정 기록 |\n\n## 💡 고객사 컨설팅 팁\n\"티켓 상태는 팀 성과 지표에 직접 영향을 줍니다.\n특히 **Pending 활용**은 불필요한 SLA 위반을 막는 핵심 전략입니다.\""
+        }
+      ]
+    },
+    {
+      "module_id": "new-fd-onboarding-03",
+      "module_name_ko": "팀 및 권한 설정",
+      "module_name_en": "Team & Permission Setup",
+      "display_order": 3,
+      "estimated_minutes": 48,
+      "description": "에이전트 추가, 그룹 생성, 역할 및 권한 관리를 학습합니다.",
+      "learning_objectives": [
+        "에이전트를 추가하고 역할을 할당할 수 있다",
+        "그룹을 생성하고 에이전트를 배치할 수 있다",
+        "권한 범위(Scope)와 커스텀 역할을 이해하고 설정할 수 있다",
+        "Omniroute 부하 분산 기능을 설정할 수 있다"
+      ],
+      "sections": [
+        {
+          "section_id": "new-fd-onboarding-03-01",
+          "section_type": "overview",
+          "section_order": 1,
+          "title_ko": "왜 팀 설정이 중요한가요?",
+          "title_en": "Why Team Setup Matters?",
+          "estimated_minutes": 5,
+          "content_md": "## 🎯 핵심 메시지\n\n효율적인 팀 구조는 티켓 처리 속도와 고객 만족도에 직접 영향을 미칩니다. 적절한 권한 설정과 그룹 구성은 보안을 유지하면서도 협업을 원활하게 만듭니다.\n\n## 📊 실무 데이터\n\n- 적절한 그룹 구성 시 티켓 처리 속도 35% 향상\n- 부하 분산 설정 시 에이전트 간 업무량 편차 50% 감소\n- 권한 관리로 보안 사고 80% 예방"
+        },
+        {
+          "section_id": "new-fd-onboarding-03-02",
+          "section_type": "concept",
+          "section_order": 2,
+          "title_ko": "핵심 개념",
+          "title_en": "Core Concepts",
+          "estimated_minutes": 8,
+          "content_md": "## 👥 에이전트 역할 4가지\n\n| 역할 | 권한 | 사용 대상 |\n|------|------|----------|\n| **Agent** | 기본 티켓 처리 | 일반 상담원 |\n| **Supervisor** | 티켓 처리 + 리포트 + 자동 할당 | 팀 리더 |\n| **Administrator** | Admin 탭 전체(청구 제외) | IT 관리자 |\n| **Account Administrator** | 모든 권한 포함 청구 | 경영진, 최소 1명 필수 |\n\n## 🔑 Scope (권한 범위)\n\n- **Global**: 모든 티켓 접근\n- **Group**: 소속 그룹 티켓만\n- **Restricted**: 자신에게 할당된 티켓만"
+        },
+        {
+          "section_id": "new-fd-onboarding-03-03",
+          "section_type": "feature-guide",
+          "section_order": 3,
+          "title_ko": "상세 설정 가이드",
+          "title_en": "Detailed Setup Guide",
+          "estimated_minutes": 20,
+          "content_md": "## ✅ 에이전트 추가\n\n**경로**: Admin > Team > Agents > Add Agent\n\n1. 이메일 주소 입력\n2. 역할 선택 (Agent/Supervisor/Admin)\n3. Scope 설정 (Global/Group/Restricted)\n4. 그룹 배정\n5. 초대 이메일 전송\n\n## ✅ 그룹 생성\n\n**경로**: Admin > Team > Groups > New Group\n\n1. 그룹 이름 및 설명 입력\n2. 에이전트 추가\n3. 업무 시간 설정 (Pro 이상)\n4. 자동 할당 설정\n\n## ✅ Omniroute 부하 분산\n\n**경로**: Admin > Workflows > Omniroute\n\n- 에이전트별 최대 오픈 티켓 수 설정\n- 실시간 가용성 모니터링\n- 자동 분배"
+        },
+        {
+          "section_id": "new-fd-onboarding-03-04",
+          "section_type": "practice",
+          "section_order": 4,
+          "title_ko": "실습: 팀 구조 설계",
+          "title_en": "Practice: Design Team Structure",
+          "estimated_minutes": 10,
+          "content_md": "## 🎯 실습 목표\n\nTechStart의 고객 지원팀 구조를 설계합니다.\n\n## 📋 시나리오\n\n**팀 구성**:\n- 기술 지원팀 3명\n- 결제 지원팀 2명\n- 팀 리더 1명\n- IT 관리자 1명\n\n**과제**:\n1. 그룹 2개 생성 (Technical Support, Billing Support)\n2. 에이전트 7명 추가 및 역할/그룹 배정\n3. Omniroute 부하 분산 설정 (에이전트당 최대 20티켓)"
+        },
+        {
+          "section_id": "new-fd-onboarding-03-05",
+          "section_type": "quiz",
+          "section_order": 5,
+          "title_ko": "지식 점검 퀴즈",
+          "title_en": "Knowledge Check Quiz",
+          "estimated_minutes": 3,
+          "content_md": "## ❓ 문제 1: 역할 선택\n\n**상황**: 팀 리더가 티켓 처리뿐만 아니라 팀 성과 리포트도 확인해야 합니다.\n\n**정답**: Supervisor\n\n**해설**: Supervisor는 티켓 처리 권한 외에 리포트 접근 및 자동 할당 설정 권한을 갖습니다."
+        },
+        {
+          "section_id": "new-fd-onboarding-03-06",
+          "section_type": "quick-reference",
+          "section_order": 6,
+          "title_ko": "빠른 참고 가이드",
+          "title_en": "Quick Reference",
+          "estimated_minutes": 2,
+          "content_md": "## 역할별 권한 요약\n\n- Agent: 티켓 처리만\n- Supervisor: 티켓 + 리포트 + 자동화\n- Admin: 전체 설정(청구 제외)\n- Account Admin: 모든 권한\n\n## Scope 설정 팁\n\n- 신입: Restricted\n- 일반: Group\n- 관리자: Global"
+        }
+      ]
+    },
+    {
+      "module_id": "new-fd-onboarding-04",
+      "module_name_ko": "기본 티켓 처리 워크플로우",
+      "module_name_en": "Basic Ticket Handling Workflow",
+      "display_order": 4,
+      "estimated_minutes": 50,
+      "description": "티켓 목록 조회, 답변 작성, 할당, 상태 관리 등 일상 업무의 핵심을 학습합니다.",
+      "learning_objectives": [
+        "티켓 목록을 필터링하고 우선순위를 파악할 수 있다",
+        "Reply와 Note의 차이를 이해하고 적절히 사용할 수 있다",
+        "Canned Response를 활용하여 답변 시간을 단축할 수 있다",
+        "티켓 할당 및 상태 전환을 정확히 수행할 수 있다"
+      ],
+      "sections": [
+        {
+          "section_id": "new-fd-onboarding-04-01",
+          "section_type": "overview",
+          "section_order": 1,
+          "title_ko": "왜 티켓 워크플로우를 배워야 하나요?",
+          "title_en": "Why Learn Ticket Workflow?",
+          "estimated_minutes": 5,
+          "content_md": "## 🎯 핵심 메시지\n\n에이전트는 하루 평균 30-50개의 티켓을 처리합니다. 효율적인 워크플로우는 업무 부담을 줄이고 고객 만족도를 높입니다.\n\n## 📊 실무 데이터\n\n- Canned Response 사용 시 답변 시간 40% 단축\n- 티켓 상태 정확 관리 시 SLA 준수율 25% 향상\n- 필터링 활용 시 긴급 티켓 대응 시간 15분 단축"
+        },
+        {
+          "section_id": "new-fd-onboarding-04-02",
+          "section_type": "concept",
+          "section_order": 2,
+          "title_ko": "핵심 개념",
+          "title_en": "Core Concepts",
+          "estimated_minutes": 10,
+          "content_md": "## 📚 티켓 수명 주기\n\n| 상태 | 의미 | 전환 시점 |\n|------|------|----------|\n| Open | 에이전트 조치 필요 | 새 티켓 생성 시, 고객 재응답 시 |\n| Pending | 추가 정보 대기 | 고객에게 질문 후 |\n| Resolved | 해결 완료 | 에이전트가 해결책 제공 |\n| Closed | 최종 종료 | 고객 수용 또는 72시간 자동 |\n\n## 💬 Reply vs. Note\n\n- **Reply**: 고객에게 이메일 전송\n- **Private Note**: 에이전트 간 내부 메모\n- **Public Note**: 고객이 포털에서 볼 수 있는 메모\n\n## 🎯 우선순위\n\n- Urgent 🔴: 1시간 이내\n- High 🟠: 4시간 이내\n- Medium 🔵: 8시간 이내\n- Low 🟢: 24시간 이내"
+        },
+        {
+          "section_id": "new-fd-onboarding-04-03",
+          "section_type": "feature-guide",
+          "section_order": 3,
+          "title_ko": "상세 가이드",
+          "title_en": "Detailed Guide",
+          "estimated_minutes": 20,
+          "content_md": "## ✅ 티켓 필터링\n\n**경로**: Tickets > Filters 패널\n\n**주요 필터**: Status, Priority, Agent, Due by, Tags\n\n## ✅ 답변 작성\n\n1. Reply 버튼 클릭\n2. 내용 작성 (또는 Canned Response 삽입: /c)\n3. 첨부파일 추가 (최대 20MB)\n4. Send and set as 드롭다운에서 상태 선택\n5. Send 클릭\n\n## ✅ Canned Response 생성\n\n**경로**: Admin > Agent Productivity > Canned Responses\n\n1. New Folder 생성\n2. New Canned Response 클릭\n3. 제목 및 내용 작성\n4. Placeholder 삽입: {{ticket.requester.name}}, {{ticket.id}}\n5. 가시성 설정 (본인/전체/그룹)\n\n## ✅ 티켓 할당\n\n- **수동**: Group/Agent 드롭다운\n- **Pickup**: 티켓 스와이프 → Pickup 버튼\n- **일괄**: 여러 티켓 선택 → Assign\n- **자동**: 관리자가 설정한 규칙"
+        },
+        {
+          "section_id": "new-fd-onboarding-04-04",
+          "section_type": "practice",
+          "section_order": 4,
+          "title_ko": "실습: 하루 업무 시뮬레이션",
+          "title_en": "Practice: Daily Workflow",
+          "estimated_minutes": 12,
+          "content_md": "## 🎯 실습 목표\n\n실제 업무 흐름을 시뮬레이션하여 워크플로우를 숙달합니다.\n\n## 📋 시나리오\n\n**상황**: 월요일 오전 9시, 주말 동안 쌓인 40개 티켓 처리\n\n**과제 1**: 긴급 티켓 필터링 (Status=Open, Priority=Urgent, Due by=Today)\n\n**과제 2**: 티켓 #12501 처리\n- Pickup으로 할당\n- Canned Response로 답변\n- Private Note 작성\n- Pending으로 상태 변경\n\n**과제 3**: 일반 문의 #12502 처리\n- Canned Response 사용\n- Resolved로 상태 변경\n\n**과제 4**: 복잡한 티켓 #12503\n- 기술팀에 할당\n- Private Note로 인수인계\n- 고객에게 중간 업데이트 Reply"
+        },
+        {
+          "section_id": "new-fd-onboarding-04-05",
+          "section_type": "quiz",
+          "section_order": 5,
+          "title_ko": "지식 점검 퀴즈",
+          "title_en": "Knowledge Check Quiz",
+          "estimated_minutes": 3,
+          "content_md": "## ❓ 문제 1: 우선순위 판단\n\n**상황**: Overdue, Urgent, High, Low 티켓이 혼재\n\n**정답**: Overdue → Urgent → High → Low\n\n**해설**: 마감 기한과 우선순위를 함께 고려. Overdue가 최우선.\n\n## ❓ 문제 2: Canned Response 효과\n\n**질문**: 하루 15건, 월 20일, 기존 5분/건 → Canned 1분/건 절약 시간?\n\n**정답**: 월 20시간 (2.5일)"
+        }
+      ]
+    }
+  ],
+  "total_modules": 4,
+  "total_estimated_minutes": 188
+}
