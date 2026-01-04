@@ -18,8 +18,9 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import type { ProgressSummary } from '../types';
+import { ScenarioManagement, CurriculumManagement, AIContentGenerator, DocumentManagement } from '../components/admin';
 
-type Tab = 'users' | 'documents';
+type Tab = 'users' | 'documents' | 'scenarios' | 'curriculum' | 'ai-content' | 'rag-documents';
 
 // 사용자별 통합 데이터 (백엔드에서 사용자당 하나의 세션만 반환)
 interface UserSummary {
@@ -385,19 +386,63 @@ const AdminPage: React.FC = () => {
               <i className="fas fa-users mr-2" />
               사용자 진행 현황
             </Button>
-            <Button
-              variant="ghost"
-              onClick={() => setActiveTab('documents')}
-              className={`px-6 py-4 text-sm font-medium rounded-none ${activeTab === 'documents'
-                  ? 'text-primary border-b-2 border-primary'
-                  : 'text-muted-foreground'
-                }`}
-            >
-              <i className="fas fa-folder-open mr-2" />
-              문서 관리
-            </Button>
-          </nav>
-        </div>
+                    <Button
+                      variant="ghost"
+                      onClick={() => setActiveTab('documents')}
+                      className={`px-6 py-4 text-sm font-medium rounded-none ${activeTab === 'documents'
+                          ? 'text-primary border-b-2 border-primary'
+                          : 'text-muted-foreground'
+                        }`}
+                    >
+                      <i className="fas fa-folder-open mr-2" />
+                      문서 관리
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      onClick={() => setActiveTab('scenarios')}
+                      className={`px-6 py-4 text-sm font-medium rounded-none ${activeTab === 'scenarios'
+                          ? 'text-primary border-b-2 border-primary'
+                          : 'text-muted-foreground'
+                        }`}
+                    >
+                      <i className="fas fa-theater-masks mr-2" />
+                      시나리오 관리
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      onClick={() => setActiveTab('curriculum')}
+                      className={`px-6 py-4 text-sm font-medium rounded-none ${activeTab === 'curriculum'
+                          ? 'text-primary border-b-2 border-primary'
+                          : 'text-muted-foreground'
+                        }`}
+                    >
+                      <i className="fas fa-book mr-2" />
+                      커리큘럼 관리
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      onClick={() => setActiveTab('ai-content')}
+                      className={`px-6 py-4 text-sm font-medium rounded-none ${activeTab === 'ai-content'
+                          ? 'text-primary border-b-2 border-primary'
+                          : 'text-muted-foreground'
+                        }`}
+                    >
+                      <i className="fas fa-magic mr-2" />
+                      AI 콘텐츠 생성
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      onClick={() => setActiveTab('rag-documents')}
+                      className={`px-6 py-4 text-sm font-medium rounded-none ${activeTab === 'rag-documents'
+                          ? 'text-primary border-b-2 border-primary'
+                          : 'text-muted-foreground'
+                        }`}
+                    >
+                      <i className="fas fa-database mr-2" />
+                      RAG 문서 관리
+                    </Button>
+                  </nav>
+                </div>
 
         {/* Search */}
         <div className="p-4 border-b border-border flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -522,62 +567,70 @@ const AdminPage: React.FC = () => {
                 ) : null}
               </div>
             )
-          ) : (
-            isDocumentsLoading && documents.length === 0 ? (
-              <div className="py-8 text-center">
-                <LoadingSpinner message="문서 목록을 불러오는 중..." />
-              </div>
-            ) : filteredDocuments.length === 0 ? (
-              <div className="py-8 text-center text-muted-foreground">
-                <i className="fas fa-folder-open text-3xl mb-2" />
-                <p>문서가 없습니다.</p>
-              </div>
-            ) : (
-              <div className="space-y-2">
-                {filteredDocuments.map((doc) => {
-                  const category = getMetadataValue(doc, 'category');
-                  const author = getMetadataValue(doc, 'author');
-                  const tags = getMetadataValue(doc, 'tags');
-
-                  return (
-                    <div
-                      key={doc.name}
-                      className="flex items-center justify-between p-3 bg-muted rounded-lg border border-border hover:border-primary/30 transition-colors"
-                    >
-                      <div className="flex items-center gap-3 flex-1 min-w-0">
-                        <div className="w-10 h-10 bg-background rounded-lg flex items-center justify-center border border-border">
-                          <i className="fas fa-file-alt text-muted-foreground" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="font-medium text-foreground truncate">
-                            {doc.displayName || doc.name}
-                          </p>
-                          <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                            {category && <span className="capitalize">{category}</span>}
-                            {author && <span>by {author}</span>}
-                            {tags && <span>#{tags.split(',')[0]}</span>}
-                          </div>
-                        </div>
-                      </div>
-                      <Button
-                        variant="destructive"
-                        size="sm"
-                        onClick={() => handleDeleteDocument(doc.name, doc.displayName || doc.name)}
-                        disabled={deletingDocName === doc.name}
-                        aria-label={`${doc.displayName || doc.name} 문서 삭제`}
-                        title="삭제"
-                      >
-                        <i className="fas fa-trash" />
-                        {deletingDocName === doc.name ? '삭제 중…' : '삭제'}
-                      </Button>
+                ) : activeTab === 'documents' ? (
+                  isDocumentsLoading && documents.length === 0 ? (
+                    <div className="py-8 text-center">
+                      <LoadingSpinner message="문서 목록을 불러오는 중..." />
                     </div>
-                  );
-                })}
-              </div>
-            )
-          )}
-        </CardContent>
-      </Card>
+                  ) : filteredDocuments.length === 0 ? (
+                    <div className="py-8 text-center text-muted-foreground">
+                      <i className="fas fa-folder-open text-3xl mb-2" />
+                      <p>문서가 없습니다.</p>
+                    </div>
+                  ) : (
+                    <div className="space-y-2">
+                      {filteredDocuments.map((doc) => {
+                        const category = getMetadataValue(doc, 'category');
+                        const author = getMetadataValue(doc, 'author');
+                        const tags = getMetadataValue(doc, 'tags');
+
+                        return (
+                          <div
+                            key={doc.name}
+                            className="flex items-center justify-between p-3 bg-muted rounded-lg border border-border hover:border-primary/30 transition-colors"
+                          >
+                            <div className="flex items-center gap-3 flex-1 min-w-0">
+                              <div className="w-10 h-10 bg-background rounded-lg flex items-center justify-center border border-border">
+                                <i className="fas fa-file-alt text-muted-foreground" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <p className="font-medium text-foreground truncate">
+                                  {doc.displayName || doc.name}
+                                </p>
+                                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                                  {category && <span className="capitalize">{category}</span>}
+                                  {author && <span>by {author}</span>}
+                                  {tags && <span>#{tags.split(',')[0]}</span>}
+                                </div>
+                              </div>
+                            </div>
+                            <Button
+                              variant="destructive"
+                              size="sm"
+                              onClick={() => handleDeleteDocument(doc.name, doc.displayName || doc.name)}
+                              disabled={deletingDocName === doc.name}
+                              aria-label={`${doc.displayName || doc.name} 문서 삭제`}
+                              title="삭제"
+                            >
+                              <i className="fas fa-trash" />
+                              {deletingDocName === doc.name ? '삭제 중…' : '삭제'}
+                            </Button>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )
+                ) : activeTab === 'scenarios' ? (
+                  <ScenarioManagement />
+                ) : activeTab === 'curriculum' ? (
+                  <CurriculumManagement />
+                ) : activeTab === 'ai-content' ? (
+                  <AIContentGenerator />
+                ) : activeTab === 'rag-documents' ? (
+                  <DocumentManagement />
+                ) : null}
+              </CardContent>
+            </Card>
 
       {/* 상세 모니터링 다이얼로그 */}
       <Dialog open={isDetailOpen} onOpenChange={setIsDetailOpen}>
