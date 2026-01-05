@@ -1,5 +1,8 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+import tailwindcssAnimate from "tailwindcss-animate"
+import tailwindcssTypography from "@tailwindcss/typography"
+
+export default {
 	darkMode: ["class"],
 	content: [
 		'./index.html',
@@ -69,7 +72,6 @@ module.exports = {
     				'4': 'hsl(var(--chart-4))',
     				'5': 'hsl(var(--chart-5))'
     			},
-    			// 🎨 시맨틱 컬러 (통합 디자인 시스템)
     			success: {
     				DEFAULT: 'hsl(var(--success))',
     				foreground: 'hsl(var(--success-foreground))'
@@ -122,7 +124,7 @@ module.exports = {
     	}
     },
 	plugins: [
-		require("tailwindcss-animate"),
-		require("@tailwindcss/typography")
+		tailwindcssAnimate,
+		tailwindcssTypography
 	],
 }
