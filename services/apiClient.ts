@@ -5,7 +5,23 @@
 
 import { getAccessToken } from './supabaseClient';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://acent-api.fly.dev/api';
+const DEFAULT_API_BASE_URL = 'https://acent-api.fly.dev/api';
+
+function resolveApiBaseUrl(rawUrl?: string): string {
+  const trimmed = rawUrl?.trim();
+  if (!trimmed) {
+    return DEFAULT_API_BASE_URL;
+  }
+
+  // 배포 환경 변수에 구 도메인이 남아있는 경우 신 도메인으로 강제 전환
+  if (trimmed.includes('api.wedosoft.net')) {
+    return DEFAULT_API_BASE_URL;
+  }
+
+  return trimmed;
+}
+
+const API_BASE_URL = resolveApiBaseUrl(import.meta.env.VITE_API_BASE_URL);
 
 interface ApiError {
   message: string;
