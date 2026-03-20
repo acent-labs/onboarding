@@ -15,7 +15,7 @@ export default defineConfig({
     video: 'retain-on-failure',
   },
   webServer: {
-    command: 'VITE_API_BASE_URL=https://acent-api.fly.dev/api VITE_E2E_AUTO_LOGIN=true VITE_E2E_TEST_USER_EMAIL=playwright@wedosoft.net VITE_E2E_TEST_USER_NAME="Playwright Reviewer" npm run dev -- --host 127.0.0.1 --port 4173',
+    command: 'VITE_API_BASE_URL=https://acent-backend.fly.dev/api VITE_E2E_AUTO_LOGIN=true VITE_E2E_TEST_USER_EMAIL=playwright@wedosoft.net VITE_E2E_TEST_USER_NAME="Playwright Reviewer" npm run dev -- --host 127.0.0.1 --port 4173',
     url: process.env.PLAYWRIGHT_BASE_URL || 'http://127.0.0.1:4173',
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,

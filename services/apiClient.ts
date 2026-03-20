@@ -5,7 +5,7 @@
 
 import { getAccessToken } from './supabaseClient';
 
-const DEFAULT_API_BASE_URL = 'https://acent-api.fly.dev/api';
+const DEFAULT_API_BASE_URL = 'https://acent-backend.fly.dev/api';
 
 function resolveApiBaseUrl(rawUrl?: string): string {
   const trimmed = rawUrl?.trim();
@@ -14,7 +14,7 @@ function resolveApiBaseUrl(rawUrl?: string): string {
   }
 
   // 배포 환경 변수에 구 도메인이 남아있는 경우 신 도메인으로 강제 전환
-  if (trimmed.includes('api.wedosoft.net')) {
+  if (trimmed.includes('api.wedosoft.net') || trimmed.includes('acent-api.fly.dev')) {
     return DEFAULT_API_BASE_URL;
   }
 
